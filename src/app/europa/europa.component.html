@@ -1,0 +1,174 @@
+
+    <title>eves_ GEOPicker</title>
+    <meta charset="utf-8" />
+    <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" /> -->
+    <link rel="stylesheet" type="text/scss" href="/geopicker/src/app/europa/europa.component.scss">
+    <style type="text/css">
+        .popup-behavior .leaflet-popup-content-wrapper,
+        .popup-behavior .leaflet-popup-tip {
+            opacity: 0.7;
+        }
+    </style>
+
+
+<div id="map" style="width: 600px; height: 400px"></div>
+
+<div class="row">
+    <div id="controls">
+        <form [formGroup]="inputFields">
+            <label>Land:
+
+                <input id="land-input" type="text" placeholder="enter Land" formControlName="landInput">
+            </label>
+            <label>Farbe:
+                <select id="colorPick" formControlName="colorSelect">
+                    <option value="#f54251">Rot</option>
+                    <option value="#2754cf">Blau</option>
+                    <option value="#d6cf0d">Gelb</option>
+                    <option value="#17eb50">Grün</option>
+                    <option value="#d71ae8">Lila</option>
+                    <option value="#14e3d5">Türkis</option>
+                    <option value="#eb9123">Orange</option>
+                    <option value="#095e7a">Dunkelblau</option>
+                    <option value="#fff">Weiß</option>
+                    <option value="#000">Schwarz</option>
+                </select>
+            </label>
+            <!-- <input id="color-input" type="text" placeholder="enter color"> -->
+            <!-- <input id="weight-input" type="text" placeholder="enter weight"> -->
+            <label>Opacity:
+
+                <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacity">
+            </label>
+            <label>Kommentar:
+
+                <input id="kommentar" type="text" placeholder="enter comment" formControlName="comment">
+            </label>
+            <label>
+                Image:
+                <input id="image-field" type="text" placeholder="enter image src" formControlName="image">
+            </label>
+            <input type="button" value="enter" (click)="enterFunction();">
+        </form>
+    </div>
+    <div id="images">
+
+    </div>
+</div>
+
+
+    <script>
+
+        var pickedColor = "";
+        var opacity = "";
+        var comment = "";
+        var image = "";
+
+        var newMap = L.map('newMap').setView([46.3519918, 53.4225824], 2.94);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>, Presented By <a style="color: #ee7f00" href="https://eves-it.de/">eves_</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1IjoiamFrb2JldjEiLCJhIjoiY2sxdWxldW9qMDJ2MDNubXF2cjk1dWczcCJ9.Iy29QE_DPIJGFZQ4sOZWQg'
+        }).addTo(newMap);
+        L.control.browserPrint().addTo(newMap);
+
+        /*
+        Has to be interactive to show selected items
+        */
+        var div;
+        const legend = L.control({
+            position: "bottomleft"
+        });
+        legend.onAdd = function (newMap) {
+            div = L.DomUtil.create("div", "legend");
+            div.innerHTML += "<h4>Legende</h4>";
+            div.innerHTML += '<i style="background: #477AC2"></i><span>Water</span><br>';
+            div.innerHTML += '<i style="background: #448D40"></i><span>Forest</span><br>';
+            div.innerHTML += '<i style="background: #E6E696"></i><span>Land</span><br>';
+            div.innerHTML += '<i style="background: #E8E6E0"></i><span>Residential</span><br>';
+            div.innerHTML += '<i style="background: #FFFFFF"></i><span>Ice</span><br>';
+            div.innerHTML +=
+                '<i class="icon" style="background-image: url(https://d30y9cdsu7xlg0.cloudfront.net/png/194515-200.png);background-repeat: no-repeat;"></i><span>Grænse</span><br>';
+            return div;
+        };
+        legend.addTo(newMap);
+
+
+        function enterFunction() {
+            getInputFieldValues();
+            generateAppereance();
+            var newLayer = new L.GeoJSON.AJAX("geojsonFiles/european-union-countries.geojson", {
+                clickable: true,
+                style: function (feature) {
+                    console.log(feature);
+                    if (feature.properties.admin == userLandInput) {
+                        console.log(userLandInput);
+                        return appereance;
+                    } else {
+                        return defaultAppereance;
+                    }
+                }
+                // ,
+                // onEachFeature: function(feature, featureLayer){
+                //     featureLayer.bindPopup(feature.properties.admin)
+                // }
+            }).addTo(newMap).bindPopup(`<a>${comment}</a><div><img style="width: 100%" src="${image}"></div>`, {
+                autoClose: false,
+                closeButton: true,
+                closeOnClick: false,
+                className: "popup-behavior",
+                autoPan: true,
+                maxWidth: 5
+            }).openPopup();
+
+            /*Legend specific*/
+
+            L.easyPrint({
+                title: 'downlaod',
+                position: 'bottomright',
+                sizeModes: ['A4Portrait', 'A4Landscape']
+            }).addTo(newMap);
+        }
+
+        function getInputFieldValues() {
+            var userLandInput = document.getElementById("land-input").value;
+            console.log(userLandInput);
+            // var color = document.getElementById(color-input);
+            var colors = document.getElementById("colorPick");
+            pickedColor = colors.options[colors.selectedIndex].value;
+            // var landweigth = document.getElementById("weight-input").value;
+            opacity = document.getElementById("opacity-input").value;
+            comment = document.getElementById("kommentar").value;
+            image = document.getElementById("image-field").value;
+        }
+
+        function  generateAppereance() {
+            var appereance = {
+                stroke: false,
+                fill: true,
+                fillColor: pickedColor,
+                fillOpacity: opacity
+                
+            }
+            var defaultAppereance = {
+                stroke: false,
+                fill: false,
+                fillColor: null,
+                fillOpacity: 0
+            }
+        }
+
+        leafletImage(newMap, function (err, canvas) {
+            // now you have canvas
+            // example thing to do with that canvas:
+            var img = document.createElement('img');
+            var dimensions = newMap.getSize();
+            img.width = dimensions.x;
+            img.height = dimensions.y;
+            img.src = canvas.toDataURL();
+            document.getElementById('images').innerHTML = '';
+            document.getElementById('images').appendChild(img);
+        });
+    </script>
+

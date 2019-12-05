@@ -1,0 +1,160 @@
+    <title>eves_ GEOPicker</title>
+    <meta charset="utf-8" />
+    <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" /> -->
+    <link rel="stylesheet" type="text/scss" href="/geopicker/src/app/germany/germany.component.scss">
+    <style type="text/css">
+        .popup-behavior .leaflet-popup-content-wrapper, 
+.popup-behavior .leaflet-popup-tip {
+    opacity: 0.7;
+}
+    </style>
+
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="jsFiles/leafletscriptajax.ajax.min.js"></script>
+
+    <script src="jsFiles/leaflet.browser.print.min.js"></script>
+
+    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-image/v0.0.4/leaflet-image.js'></script>
+
+    <div id="map-content" class="row">
+
+        <h1>Germany</h1>
+        <div id="newMap" style="width: 600px; height: 400px"></div>
+        
+    </div>
+    <div class="row">
+        <div id="controls">
+            <form>
+                <label>Land:
+
+                    <input id="land-input" type="text" placeholder="enter Bundesland">
+                </label>
+                <label>Farbe:
+                    <select id="colorPick">
+                        <option value="#f54251">Rot</option>
+                        <option value="#2754cf">Blau</option>
+                        <option value="#d6cf0d">Gelb</option>
+                        <option value="#17eb50">Grün</option>
+                        <option value="#d71ae8">Lila</option>
+                        <option value="#14e3d5">Türkis</option>
+                        <option value="#eb9123">Orange</option>
+                        <option value="#095e7a">Dunkelblau</option>
+                        <option value="#fff">Weiß</option>
+                        <option value="#000">Schwarz</option>
+                    </select>
+                </label>
+                <!-- <input id="color-input" type="text" placeholder="enter color"> -->
+                <!-- <input id="weight-input" type="text" placeholder="enter weight"> -->
+                <label>Opacity:
+
+                    <input id="opacity-input" type="text" placeholder="enter opacity">
+                </label>
+                <label>Kommentar:
+
+                    <input id="kommentar" type="text" placeholder="enter comment">
+                </label>
+                <label>Image Src: 
+                    <input id="image-field" type="text" placeholder="Url to Image">
+                </label>
+                <input type="button" value="enter" onclick="enterFunction()">
+            </form>
+        </div>
+        <div id="images">
+
+        </div>
+    </div>
+
+   
+    <script>
+       
+      
+
+        var newMap = L.map('newMap').setView([51.2601802,10.6803971], 5.5);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>, Presented By <a style="color: #ee7f00" href="https://eves-it.de/">eves_</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'pk.eyJ1IjoiamFrb2JldjEiLCJhIjoiY2sxdWxldW9qMDJ2MDNubXF2cjk1dWczcCJ9.Iy29QE_DPIJGFZQ4sOZWQg'
+        }).addTo(newMap);
+        L.control.browserPrint().addTo(newMap);
+
+      
+
+        function enterFunction(){
+
+        var userLandInput = document.getElementById("land-input").value;
+        console.log(userLandInput);
+        // var color = document.getElementById(color-input);
+        var colors = document.getElementById("colorPick");
+        var pickedColor = colors.options[colors.selectedIndex].value;
+        // var landweigth = document.getElementById("weight-input").value;
+        var opacity = document.getElementById("opacity-input").value;
+        var comment = document.getElementById("kommentar").value;
+        var image = document.getElementById("image-field").value;
+        var appereance = {
+            stroke: false,
+            fill: true,
+            fillColor: pickedColor,
+            fillOpacity: opacity
+        }
+        var defaultAppereance = {
+            stroke: false,
+            fill: false,
+            fillColor: '#fff',
+            fillOpacity: 0
+        }
+        var newLayer = new L.GeoJSON.AJAX("geojsonFiles/bundeslaender.geojson", {
+        clickable: true,
+        style: function(feature){
+            console.log(feature);
+            if(feature.properties.GEN == userLandInput){
+                console.log(userLandInput);
+                return appereance;
+            } else {
+                return defaultAppereance;
+            }
+        }
+        /*
+        function(layer){
+        console.log(layer.feature.properties.admin);
+        return layer.feature.properties.admin;
+        })
+        below was bindPopup
+        */
+        }).bindPopup(`<a>${comment}</a><div><img style="width: 100%" src="${image}"></div>`, {autoClose: false,
+             closeButton: false,
+             closeOnClick: false,
+             className: "popup-behavior",
+             autoPan: true,
+             maxWidth: 150
+            }).addTo(newMap).openTooltip();
+
+        L.easyPrint({
+            title: 'downlaod',
+            position: 'bottomright',
+            sizeModes: ['A4Portrait', 'A4Landscape']
+        }).addTo(newMap);
+        }
+        leafletImage(newMap, function(err, canvas) {
+    // now you have canvas
+    // example thing to do with that canvas:
+    var img = document.createElement('img');
+    var dimensions = newMap.getSize();
+    img.width = dimensions.x;
+    img.height = dimensions.y;
+    img.src = canvas.toDataURL();
+    document.getElementById('images').innerHTML = '';
+    document.getElementById('images').appendChild(img);
+});
+    </script>
+

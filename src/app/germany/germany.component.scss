@@ -1,0 +1,29 @@
+#map-content {
+    margin: auto;
+}
+.popup-behavior .leaflet-popup-content-wrapper, 
+.popup-behavior .leaflet-popup-tip {
+    opacity: 0.5;
+}
+#newMap {
+    height: 700px;
+    width: 100%;
+}
+#controls {
+    margin-top: 1.5%;
+}
+input {
+    border-style: solid;
+    border-color: orange;
+    border-radius: 4px;
+}
+select {
+    border-style: solid;
+    border-color: orange;
+    border-radius: 4px;
+}
+option {
+    border-style: solid;
+    border-color: orange;
+    border-radius: 4px;
+}
