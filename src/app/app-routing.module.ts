@@ -18,9 +18,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent },
 ];
-
+/**
+ * {onSameUrlNavigation: 'reload'}
+ */
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -51,7 +51,7 @@ export class EuropaComponent implements OnInit {
   
     this._geoService.getEuropaJson().subscribe(data =>{
       this.geoData = data;
-    })
+    });
   
     // this.geoData = $.ajax({
     //   url: "/src/assets/geojsonFiles/world.geojson",
@@ -94,7 +94,7 @@ export class EuropaComponent implements OnInit {
   
        const newLayer =  L.geoJSON(this.geoData, {
          style:(feature)=>{
-           if(feature.properties.admin === userLandInput){
+           if(feature.properties.name === userLandInput){
              console.log(userLandInput);
              return appereance;
             }else {

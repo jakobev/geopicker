@@ -1,7 +1,16 @@
 const express = require("express");
 var path = require("path");
+const cors = require("cors");
+
+var time = new Date();
 
 const app = express();
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 app.get('/api/customers', (req,res)=>{
     const customers = [
@@ -12,24 +21,24 @@ app.get('/api/customers', (req,res)=>{
     res.json(customers);
 });
 
-app.get('/src/assets/geojsonFiles/world.geojson', (req,res)=>{
+app.get('/api/src/assets/geojsonFiles/world.geojson', (req,res)=>{
     console.log("response -----",res);
     res.sendFile(path.join(__dirname, '/assets/geojsonFiles', 'world.geojson'));
 });
 
-app.get('/src/assets/geojsonFiles/bundeslaender.geojson', (req,res)=>{
+app.get('/api/src/assets/geojsonFiles/bundeslaender.geojson', (req,res)=>{
     console.log("response-----", res);
     res.sendFile(path.join(__dirname, '/assets/geojsonFiles', 'bundeslaender.geojson'));
 });
 
-app.get('/src/assets/geojsonFiles/european-union-countries.geojson', (req,res)=>{
+app.get('/api/src/assets/geojsonFiles/european-union-countries.geojson', (req,res)=>{
     console.log("response-----", res);
     res.sendFile(path.join(__dirname, '/assets/geojsonFiles', 'european-union-countries.geojson'));
 });
-app.get('/src/assets/geojsonFiles/landkreise-in-germany.geojson', (req,res)=>{
+app.get('/api/src/assets/geojsonFiles/landkreise-in-germany.geojson', (req,res)=>{
     console.log("response-----", res);
     res.sendFile(path.join(__dirname, '/assets/geojsonFiles', 'landkreise-in-germany.geojson'));
 });
 const port = 5005;
 
-app.listen(port, ()=> console.log(`server running on port:${port}`));
+app.listen(port, ()=> console.log(time, `server running on port:${port}`));

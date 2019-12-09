@@ -13,7 +13,7 @@ export class GeoDataService {
 
     public getWorldJson(): Observable<any>{
         console.log("Geodata Service getWorld");
-        return this.http.get('/src/assets/geojsonFiles/world.geojson')
+        return this.http.get('http://localhost:5005/api/src/assets/geojsonFiles/world.geojson')
         .pipe(map(data =>{
             return data;
         }),
@@ -22,7 +22,7 @@ export class GeoDataService {
 
     public getEuropaJson(): Observable<any>{
         console.log("Geodata Service getEuropa");
-        return this.http.get('/src/assets/geojsonFiles/european-union-countries.geojson')
+        return this.http.get('http://localhost:5005/api/src/assets/geojsonFiles/european-union-countries.geojson')
         .pipe(map(data =>{
             return data;
         }),
@@ -31,7 +31,7 @@ export class GeoDataService {
 
     public getGermanyJson(): Observable<any>{
         console.log("Geodata Service getGermany");
-        return this.http.get('/src/assets/geojsonFiles/bundeslaender.geojson')
+        return this.http.get('http://localhost:5005/api/src/assets/geojsonFiles/bundeslaender.geojson')
         .pipe(map(data =>{
             return data;
         }),

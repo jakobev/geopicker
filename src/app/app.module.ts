@@ -15,6 +15,7 @@ import { TestGroundComponent } from './test-ground/test-ground.component';
 import { ScriptService } from './script.service';
 import { GeoDataService } from './geodata.service';
 import { HttpClientModule} from '@angular/common/http'
+import { HelperService } from './helper.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HttpClientModule} from '@angular/common/http'
   ],
   providers: [
     ScriptService,
-    GeoDataService
+    GeoDataService,
+    HelperService,
   ],
   bootstrap: [AppComponent]
 })
