@@ -106,11 +106,19 @@ export class GermanyComponent implements OnInit {
               return defaultAppereance;
             }
           }
-        }).addTo(this.map).bindPopup(`<a>${comment}</a><div><img style="width: 100%" src="${image}"></div>`, {autoClose: false,
+        }).addTo(this.map).bindTooltip(`<a>${comment}</a><div><img style="width: 50px; height: 50px;" src="${image}"></div>`,{
+          permanent: false,
+          opacity: opacity,
+
+        }).openTooltip();
+        }
+
+        /**
+         * .bindPopup(`<a>${comment}</a><div><img style="width: 50px; height: 50px;" src="${image}"></div>`, {autoClose: false,
           closeButton: true,
           closeOnClick: false,
           className: "popup-behavior",
           autoPan: true,
           maxWidth:150});
-        }
+         */
 }

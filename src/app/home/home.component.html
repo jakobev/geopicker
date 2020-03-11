@@ -4,25 +4,33 @@
 <meta charset="utf-8">
 <link rel="stylesheet" type="text/scss" href="/geopicker/src/app/home/home.component.scss">
 
-        <div id="welcome" class="row">
-            <h1>Willkommen bei eves_ GEOPicker</h1>
-            <h3>Bitte klicken Sie auf die gewünschte Option</h3>
+<div id="page-content">
+    
+    <div id="welcome">
+        <h1>Willkommen bei eves_ GEOPicker</h1>
+        <h3>Bitte klicken Sie auf die gewünschte Option</h3>
+    </div>
+    <div id="select-overview" >
+        <div class="column">
+            
+            <img src="assets/cute-world.png" alt="Earth" (click)="goToWorld();">
+            <img src="assets/europa-symbol.png" alt="Europa" (click)="goToEuropeAuswahl();">
+            
+            
         </div>
-        <div id="select-overview" class="row">
-            <div class="column">
-               
-                    <img src="assets/cute-world.png" alt="Earth" (click)="goToWorld();">
-                    <img src="assets/europa-symbol.png" alt="Europa" (click)="goToEuropeAuswahl();">
-                
+        
+    </div>
+    
+        
+        <footer class="footer">
+            <div class="container">
+                <div class="content has-text-centered">
+                    <a href="https://eves-it.de">eves</a>
+                    <a>Azubi Marvin Bittermann</a>
 
+                </div>
             </div>
-          
-        </div>
-<div id="footer-class" class="row">
-
-    <footer>
-        <a href="https://eves-it.de">eves</a>
-        <a>Azubi Marvin Bittermann</a>
-    </footer>
+        </footer>
+    
 </div>
         <script></script>

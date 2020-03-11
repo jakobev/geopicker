@@ -6,6 +6,10 @@ var time = new Date();
 
 const app = express();
 
+
+/**
+ * needed to allow requests from another port
+ */
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -41,4 +45,8 @@ app.get('/api/src/assets/geojsonFiles/landkreise-in-germany.geojson', (req,res)=
 });
 const port = 5005;
 
+
+/**
+ * server running on port 5005...
+ */
 app.listen(port, ()=> console.log(time, `server running on port:${port}`));

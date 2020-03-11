@@ -34,8 +34,7 @@
                     <option value="#000">Schwarz</option>
                 </select>
             </label>
-            <!-- <input id="color-input" type="text" placeholder="enter color"> -->
-            <!-- <input id="weight-input" type="text" placeholder="enter weight"> -->
+          
             <label>Opacity:
 
                 <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacity">
@@ -131,33 +130,7 @@
             }).addTo(newMap);
         }
 
-        function getInputFieldValues() {
-            var userLandInput = document.getElementById("land-input").value;
-            console.log(userLandInput);
-            // var color = document.getElementById(color-input);
-            var colors = document.getElementById("colorPick");
-            pickedColor = colors.options[colors.selectedIndex].value;
-            // var landweigth = document.getElementById("weight-input").value;
-            opacity = document.getElementById("opacity-input").value;
-            comment = document.getElementById("kommentar").value;
-            image = document.getElementById("image-field").value;
-        }
-
-        function  generateAppereance() {
-            var appereance = {
-                stroke: false,
-                fill: true,
-                fillColor: pickedColor,
-                fillOpacity: opacity
-                
-            }
-            var defaultAppereance = {
-                stroke: false,
-                fill: false,
-                fillColor: null,
-                fillOpacity: 0
-            }
-        }
+      
 
         leafletImage(newMap, function (err, canvas) {
             // now you have canvas
