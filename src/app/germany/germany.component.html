@@ -54,6 +54,12 @@
                         Image:
                         <input id="image-field" type="text" placeholder="enter image src" formControlName="image">
                     </label>
+                    <label>
+                        Test:
+                        <select id="landPick" formControlName="landSelect" >
+                            <option *ngFor="let element of this.geoData.features" value="{{element.properties.GEN}}">{{element.properties.GEN}}</option>
+                        </select>
+                    </label>
                     <input type="button" value="enter" (click)="enterFunction();">
                 </form>
             </div>

@@ -38,6 +38,7 @@ export class GermanyComponent implements OnInit {
         comment: ['', ],
         image: ['', ],
         colorSelect: ['',],
+        landSelect: ['',]
   
       });
 
@@ -80,6 +81,7 @@ export class GermanyComponent implements OnInit {
       // var colors = document.getElementById("colorPick");
       var pickedColor = this.inputFields.controls.colorSelect.value;
       // var landweigth = document.getElementById("weight-input").value;
+      var pickedLand = this.inputFields.controls.landSelect.value;
       var opacity = this.inputFields.controls.opacity.value;
       var comment = this.inputFields.controls.comment.value;
       var image = this.inputFields.controls.image.value;
@@ -102,7 +104,7 @@ export class GermanyComponent implements OnInit {
        const newLayer =  L.geoJSON(this.geoData, {
          style:(feature)=>{
            console.log("properties GEN before If", feature.properties.GEN);
-           if(feature.properties.GEN === this._helperService.capitalize(userLandInput)){
+           if(feature.properties.GEN === this._helperService.capitalize(pickedLand)){
              console.log("GEN after If ------->", feature.properties.GEN);
              console.log("User input ----->", userLandInput);
              return appereance;
