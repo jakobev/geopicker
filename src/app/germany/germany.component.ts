@@ -70,7 +70,10 @@ export class GermanyComponent implements OnInit {
   
     enterFunction(){
   
-      console.log("enter function geoData", this.geoData);
+      for(var i =0; i<this.geoData.features.length; i++){
+        console.log("properties in loop ", this.geoData.features[i].properties.GEN);
+      }
+      //console.log("enter function geoData", this.geoData.features);
   
       var userLandInput = this.inputFields.controls.landInput.value;
       // var color = document.getElementById(color-input);
@@ -98,8 +101,10 @@ export class GermanyComponent implements OnInit {
   
        const newLayer =  L.geoJSON(this.geoData, {
          style:(feature)=>{
+           console.log("properties GEN before If", feature.properties.GEN);
            if(feature.properties.GEN === this._helperService.capitalize(userLandInput)){
-             console.log(userLandInput);
+             console.log("GEN after If ------->", feature.properties.GEN);
+             console.log("User input ----->", userLandInput);
              return appereance;
             }else {
               console.log("deafult");

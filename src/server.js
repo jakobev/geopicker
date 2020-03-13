@@ -16,6 +16,7 @@ app.use(function(req, res, next) {
     next();
   });
 
+  //just for testing if server is started up
 app.get('/api/customers', (req,res)=>{
     const customers = [
         { id: 1, firstName: 'MArv', lastName: 'Bitter'},
