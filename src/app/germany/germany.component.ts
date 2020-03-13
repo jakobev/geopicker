@@ -19,6 +19,8 @@ export class GermanyComponent implements OnInit {
   newLayer;
   data;
   geoData;
+  arrayWithoutDuplicates;
+  newArray = [];
   
     constructor(
       private _formBuilder: FormBuilder,
@@ -42,11 +44,17 @@ export class GermanyComponent implements OnInit {
   
       });
 
-      this._geoService.getGermanyJson().subscribe(data =>{
+      this._geoService.getGermanyJson().subscribe(data => {
         this.geoData = data;
+        
+          for(var i = 0; i<this.geoData.features.length; i++){
+            this.newArray.push(this.geoData.features[i].properties.GEN);
+          } 
+          this.newArray = this.newArray.filter((element, index, array) => {
+            return index === array.indexOf(element);
+          })
       });
-  
-      
+
   
       this.map = L.map('map').setView([51.2601802,10.6803971], 5.5);
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

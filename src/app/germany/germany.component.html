@@ -22,10 +22,16 @@
         <div class="row">
             <div id="controls">
                 <form [formGroup]="inputFields">
-                    <label>Land:
+                    <label>
+                        Test:
+                        <select id="landPick" formControlName="landSelect" >
+                            <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                        </select>
+                    </label>
+                    <!-- <label>Land:
                         
                         <input id="land-input" type="text" placeholder="enter Land" formControlName="landInput">
-                    </label>
+                    </label> -->
                     <label>Farbe:
                         <select id="colorPick" formControlName="colorSelect">
                             <option value="#f54251">Rot</option>
@@ -54,12 +60,7 @@
                         Image:
                         <input id="image-field" type="text" placeholder="enter image src" formControlName="image">
                     </label>
-                    <label>
-                        Test:
-                        <select id="landPick" formControlName="landSelect" >
-                            <option *ngFor="let element of this.geoData.features" value="{{element.properties.GEN}}">{{element.properties.GEN}}</option>
-                        </select>
-                    </label>
+                   
                     <input type="button" value="enter" (click)="enterFunction();">
                 </form>
             </div>
