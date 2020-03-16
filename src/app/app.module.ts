@@ -16,6 +16,8 @@ import { ScriptService } from './script.service';
 import { GeoDataService } from './geodata.service';
 import { HttpClientModule} from '@angular/common/http'
 import { HelperService } from './helper.service';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { HelperService } from './helper.service';
     EuropaComponent,
     PageNotFoundComponent,
     TestGroundComponent,
+    FooterComponent,
+    HeaderComponent,
   
   ],
   imports: [

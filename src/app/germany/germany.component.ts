@@ -19,8 +19,8 @@ export class GermanyComponent implements OnInit {
   newLayer;
   data;
   geoData;
-  arrayWithoutDuplicates;
   newArray = [];
+  countriesUsed = [];
   
     constructor(
       private _formBuilder: FormBuilder,
@@ -32,16 +32,16 @@ export class GermanyComponent implements OnInit {
   
     ngOnInit() {
   
-     
+     console.log("ON init is called");
   
       this.inputFields =  this._formBuilder.group({
-        landInput: ['', Validators.required],
+        landInputNiedersachsen: ['', Validators.required],
         opacity: ['', Validators.required],
         comment: ['', ],
         image: ['', ],
         colorSelect: ['',],
-        landSelect: ['',]
-  
+        landSelect: ['',],
+       
       });
 
       this._geoService.getGermanyJson().subscribe(data => {
@@ -57,12 +57,12 @@ export class GermanyComponent implements OnInit {
 
   
       this.map = L.map('map').setView([51.2601802,10.6803971], 5.5);
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>, Presented By <a style="color: #ee7f00" href="https://eves-it.de/">eves_</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1IjoiamFrb2JldjEiLCJhIjoiY2sxdWxldW9qMDJ2MDNubXF2cjk1dWczcCJ9.Iy29QE_DPIJGFZQ4sOZWQg'
-    }).addTo(this.map);
+    //   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>, Presented By <a style="color: #ee7f00" href="https://eves-it.de/">eves_</a>',
+    //     maxZoom: 18,
+    //     id: 'mapbox.streets',
+    //     accessToken: 'pk.eyJ1IjoiamFrb2JldjEiLCJhIjoiY2sxdWxldW9qMDJ2MDNubXF2cjk1dWczcCJ9.Iy29QE_DPIJGFZQ4sOZWQg'
+    // }).addTo(this.map);
     // Lf.control.browserPrint().addTo(this.map);
   
   
@@ -84,7 +84,7 @@ export class GermanyComponent implements OnInit {
       }
       //console.log("enter function geoData", this.geoData.features);
   
-      var userLandInput = this.inputFields.controls.landInput.value;
+     var userLandInput = this.inputFields.controls.landSelect.value;
       // var color = document.getElementById(color-input);
       // var colors = document.getElementById("colorPick");
       var pickedColor = this.inputFields.controls.colorSelect.value;
@@ -92,8 +92,8 @@ export class GermanyComponent implements OnInit {
       var pickedLand = this.inputFields.controls.landSelect.value;
       var opacity = this.inputFields.controls.opacity.value;
       var comment = this.inputFields.controls.comment.value;
+      
       var image = this.inputFields.controls.image.value;
-      console.log(userLandInput, pickedColor, opacity, comment, image);
       var appereance = {
           stroke: false,
           fill: true,
@@ -103,7 +103,7 @@ export class GermanyComponent implements OnInit {
       var defaultAppereance = {
           stroke: false,
           fill: false,
-          fillColor: '#fff',
+          fillColor: '#7d8085',
           fillOpacity: 0
       }
   
@@ -112,7 +112,12 @@ export class GermanyComponent implements OnInit {
        const newLayer =  L.geoJSON(this.geoData, {
          style:(feature)=>{
            console.log("properties GEN before If", feature.properties.GEN);
-           if(feature.properties.GEN === this._helperService.capitalize(pickedLand)){
+           if(feature.properties.GEN === this._helperService.capitalize(userLandInput)){
+            const index = this.newArray.indexOf(feature.properties.GEN, 0);
+            if (index > -1) {
+               this.newArray.splice(index, 1);
+            }
+             console.log(this.newArray)
              console.log("GEN after If ------->", feature.properties.GEN);
              console.log("User input ----->", userLandInput);
              return appereance;
@@ -126,6 +131,12 @@ export class GermanyComponent implements OnInit {
           opacity: opacity,
 
         }).openTooltip();
+
+
+
+        this.inputFields.reset();
+
+       
         }
 
         /**
@@ -136,4 +147,52 @@ export class GermanyComponent implements OnInit {
           autoPan: true,
           maxWidth:150});
          */
+
+         /**
+          * function to gray out the other countries after adding prefered to map
+          */
+        grayOutOthers(){
+
+          console.log(this.newArray)
+
+          var defaultAppereance = {
+            stroke: false,
+            fill: true,
+            fillColor: '#ff5',
+            fillOpacity: 0.3
+        }
+
+          this.newArray.forEach(element => {
+            const newLayer =  L.geoJSON(this.geoData, {
+              style:(feature)=>{
+                if(feature.properties.GEN === element){
+
+                  console.log("properties GEN before If", feature.properties.GEN);
+                  // if(feature.properties.GEN === this._helperService.capitalize(userLandInput)){
+                    //  const index = this.newArray.indexOf(feature.properties.GEN, 0);
+                    //  if (index > -1) {
+                      //     this.newArray.splice(index, 1);
+                      //  }
+                      //   console.log(this.newArray)
+                        console.log("GEN after If ------->", feature.properties.GEN);
+                        console.log("User input ----->", element);
+                      return defaultAppereance;
+                    }
+                 }
+                //  else {
+                //    console.log("deafult");
+                //    return defaultAppereance;
+                //  }
+              //  }
+             }).addTo(this.map).bindTooltip(`<a>${element}</a>`,{
+               permanent: false,
+               opacity: 0.5,
+     
+             }).openTooltip();
+          });
+
+
+
+          
+        }
 }
