@@ -67,7 +67,7 @@
                         <br>
                         <label>Kommentar:
                             
-                            <input id="kommentar" type="text" placeholder="enter comment" formControlName="comment">
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="comment" rows="4" cols="50"></textarea>
                         </label>
                         <label>
                             <br>
@@ -82,6 +82,7 @@
                         
                         <input id="button" type="button" value="Add to map" (click)="enterFunction();">
                         <input id="button2" type="button" value="Gray out" (click)="grayOutOthers();">
+                        <input id="screenshot-button" type="button" value="Take Screenshot" (click)="takeMapScreenshot()">
                     </form>
                 </div>
             </div>
@@ -91,4 +92,15 @@
             <!-- </div> -->
         </div>
     </div>
+    <div id="myModal" class="modal">
+
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
+      
+        <!-- Modal Content (The Image) -->
+        <div class="modal-content" id="img01"></div>
+      
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
+      </div>
     <app-footer></app-footer>

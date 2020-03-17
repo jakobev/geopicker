@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ScriptService } from '../script.service';
 import { GeoDataService } from '../geodata.service';
 import { HelperService } from '../helper.service';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-germany',
@@ -21,6 +22,7 @@ export class GermanyComponent implements OnInit {
   geoData;
   newArray = [];
   countriesUsed = [];
+ 
   
     constructor(
       private _formBuilder: FormBuilder,
@@ -56,7 +58,7 @@ export class GermanyComponent implements OnInit {
       });
 
   
-      this.map = L.map('map').setView([51.2601802,10.6803971], 5.5);
+      this.map = L.map('map', {zoomControl:false, attributionControl:false}).setView([51.2601802,10.6803971], 5.5);
     //   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>, Presented By <a style="color: #ee7f00" href="https://eves-it.de/">eves_</a>',
     //     maxZoom: 18,
@@ -157,8 +159,14 @@ export class GermanyComponent implements OnInit {
 
           var defaultAppereance = {
             stroke: false,
+            fill: false,
+            fillColor: '#fff',
+            fillOpacity: 0
+        }
+        var appereance = {
+          stroke: false,
             fill: true,
-            fillColor: '#ff5',
+            fillColor: '#5c5c5c',
             fillOpacity: 0.3
         }
 
@@ -167,15 +175,18 @@ export class GermanyComponent implements OnInit {
               style:(feature)=>{
                 if(feature.properties.GEN === element){
 
-                  console.log("properties GEN before If", feature.properties.GEN);
+                //   console.log("properties GEN before If", feature.properties.GEN);
                   // if(feature.properties.GEN === this._helperService.capitalize(userLandInput)){
                     //  const index = this.newArray.indexOf(feature.properties.GEN, 0);
                     //  if (index > -1) {
                       //     this.newArray.splice(index, 1);
                       //  }
                       //   console.log(this.newArray)
-                        console.log("GEN after If ------->", feature.properties.GEN);
-                        console.log("User input ----->", element);
+                        // console.log("GEN after If ------->", feature.properties.GEN);
+                        // console.log("User input ----->", element);
+                      return appereance;
+                    }else{
+
                       return defaultAppereance;
                     }
                  }
@@ -184,15 +195,63 @@ export class GermanyComponent implements OnInit {
                 //    return defaultAppereance;
                 //  }
               //  }
-             }).addTo(this.map).bindTooltip(`<a>${element}</a>`,{
-               permanent: false,
-               opacity: 0.5,
+                }).addTo(this.map)
+            //  .bindTooltip(`<a>${element}</a>`,{
+            //    permanent: false,
+            //    opacity: 0.5,
      
-             }).openTooltip();
+            //  }).openTooltip();
           });
 
 
 
           
         }
+
+  takeMapScreenshot() {
+
+    // this.map.touchZoom.disable();
+    // this.map.doubleClickZoom.disable();
+    // this.map.scrollWheelZoom.disable();
+    // this.map.boxZoom.disable();
+    // this.map.keyboard.disable();
+    // $(".leaflet-control-zoom").css("visibility", "hidden");
+
+
+    let modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    let img = document.getElementById("myImg");
+    let modalMapContainer: HTMLElement = document.getElementById("img01") as HTMLElement;
+    let captionText = document.getElementById("caption");
+    let span: HTMLElement = document.getElementsByClassName("close")[0] as HTMLElement;
+    console.log("take screenshot");
+    // alert("Your maps will be append at the bottom of this page and you´ll have the ability to save them");
+    html2canvas(document.querySelector("#map")).then(canvas => {
+
+      if(modalMapContainer.childNodes.length >= 1){
+
+         modalMapContainer.removeChild(modalMapContainer.childNodes[0]);
+      }
+      console.log(modalMapContainer.childNodes);
+      modal.style.display = "block";
+      modalMapContainer.appendChild(canvas);
+      // modalImg.src = "https://image.winudf.com/v2/image/YXBwc2Rldi5sd3AuYW5pbWVnaXJsd2FsbHBhcGVyc19zY3JlZW5fMF8xNTI5MTM4ODk2XzA3Mw/screen-0.jpg?fakeurl=1&type=.jpg";
+      modal.appendChild(modalMapContainer);
+
+      captionText.innerHTML = "Map Image Preview";
+      captionText.style.fontSize = "40px"
+
+
+      // Get the <span> element that closes the modal
+
+
+      // When the user clicks on <span> (x), close the modal
+    });
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+  }
+         
+
 }
