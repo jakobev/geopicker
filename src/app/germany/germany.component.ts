@@ -128,31 +128,33 @@ export class GermanyComponent implements OnInit {
               return defaultAppereance;
             }
           }
-        }).addTo(this.map).bindTooltip(`<a>${comment}</a><div><img style="width: 50px; height: 50px;" src="${image}"></div>`,{
-          permanent: false,
-          opacity: opacity,
+        })
+        // .addTo(this.map).bindTooltip(`<a>${comment}</a><div><img style="width: 50px; height: 50px;" src="${image}"></div>`,{
+        //   permanent: false,
+        //   opacity: opacity,
 
-        }).openTooltip();
+        // }).openTooltip();
 
 
 
-        this.inputFields.reset();
-
-       
-        }
-
-        /**
-         * .bindPopup(`<a>${comment}</a><div><img style="width: 50px; height: 50px;" src="${image}"></div>`, {autoClose: false,
+        
+        
+        
+        
+        .addTo(this.map).bindPopup(`<a>${comment}</a><div><img style="width: 50px; height: 50px;" src="${image}"></div>`, {autoClose: false,
           closeButton: true,
           closeOnClick: false,
           className: "popup-behavior",
           autoPan: true,
           maxWidth:150});
-         */
-
+          
+          this.inputFields.reset();
+         
          /**
           * function to gray out the other countries after adding prefered to map
           */
+         
+        }
         grayOutOthers(){
 
           console.log(this.newArray)
@@ -175,32 +177,16 @@ export class GermanyComponent implements OnInit {
               style:(feature)=>{
                 if(feature.properties.GEN === element){
 
-                //   console.log("properties GEN before If", feature.properties.GEN);
-                  // if(feature.properties.GEN === this._helperService.capitalize(userLandInput)){
-                    //  const index = this.newArray.indexOf(feature.properties.GEN, 0);
-                    //  if (index > -1) {
-                      //     this.newArray.splice(index, 1);
-                      //  }
-                      //   console.log(this.newArray)
-                        // console.log("GEN after If ------->", feature.properties.GEN);
-                        // console.log("User input ----->", element);
+               
                       return appereance;
                     }else{
 
                       return defaultAppereance;
                     }
                  }
-                //  else {
-                //    console.log("deafult");
-                //    return defaultAppereance;
-                //  }
-              //  }
+               
                 }).addTo(this.map)
-            //  .bindTooltip(`<a>${element}</a>`,{
-            //    permanent: false,
-            //    opacity: 0.5,
-     
-            //  }).openTooltip();
+           
           });
 
 
