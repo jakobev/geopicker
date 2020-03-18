@@ -1,5 +1,6 @@
     <title>eves_ GEOPicker</title>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.css" /> -->
     <link rel="stylesheet" type="text/scss" href="/geopicker/src/app/germany/germany.component.scss">
     <style type="text/css">
@@ -82,7 +83,8 @@
                         
                         <input id="button" type="button" value="Add to map" (click)="enterFunction();">
                         <input id="button2" type="button" value="Gray out" (click)="grayOutOthers();">
-                        <input id="screenshot-button" type="button" value="Take Screenshot" (click)="takeMapScreenshot()">
+                        <input id="screenshot-button" type="button" value="Take Screenshot" (click)="takeMapScreenshot();">
+                        <input id="test-btn" type="button" value="Add Corona Circles :D" (click)="addCircleMarkerToMap();">
                     </form>
                 </div>
             </div>

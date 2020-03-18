@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ScriptService } from '../script.service';
-import $ from 'jquery';
 import * as L from 'leaflet';
 import { GeoDataService } from '../geodata.service';
 

@@ -6,6 +6,7 @@ import { ScriptService } from '../script.service';
 import { GeoDataService } from '../geodata.service';
 import { HelperService } from '../helper.service';
 import html2canvas from 'html2canvas';
+import { faCamera} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-germany',
@@ -14,7 +15,7 @@ import html2canvas from 'html2canvas';
 })
 export class GermanyComponent implements OnInit {
 
-
+  fac = faCamera;
   map;
   inputFields: FormGroup;
   newLayer;
@@ -22,6 +23,7 @@ export class GermanyComponent implements OnInit {
   geoData;
   newArray = [];
   countriesUsed = [];
+  label;
  
   
     constructor(
@@ -97,10 +99,12 @@ export class GermanyComponent implements OnInit {
       
       var image = this.inputFields.controls.image.value;
       var appereance = {
-          stroke: false,
+          stroke: true,
           fill: true,
           fillColor: pickedColor,
-          fillOpacity: opacity
+          fillOpacity: opacity,
+          weight: 1,
+          color: pickedColor
       }
       var defaultAppereance = {
           stroke: false,
@@ -113,6 +117,7 @@ export class GermanyComponent implements OnInit {
   
        const newLayer =  L.geoJSON(this.geoData, {
          style:(feature)=>{
+          //  this.label = String(feature.properties.GEN);
            console.log("properties GEN before If", feature.properties.GEN);
            if(feature.properties.GEN === this._helperService.capitalize(userLandInput)){
             const index = this.newArray.indexOf(feature.properties.GEN, 0);
@@ -129,24 +134,24 @@ export class GermanyComponent implements OnInit {
             }
           }
         })
-        // .addTo(this.map).bindTooltip(`<a>${comment}</a><div><img style="width: 50px; height: 50px;" src="${image}"></div>`,{
-        //   permanent: false,
-        //   opacity: opacity,
-
-        // }).openTooltip();
+        // .addTo(this.map)
+        // .bindTooltip(this.label, {permanent: true, 
+        //   direction: "center",
+        //   className: "my-labels"}).openTooltip();
 
 
 
         
+        // <div><img style="width: 50px; height: 50px;" src="${image}"></div>
         
         
-        
-        .addTo(this.map).bindPopup(`<a>${comment}</a><div><img style="width: 50px; height: 50px;" src="${image}"></div>`, {autoClose: false,
+        .addTo(this.map).bindPopup(`<p>${comment}</p>`, {autoClose: false,
           closeButton: true,
           closeOnClick: false,
           className: "popup-behavior",
           autoPan: true,
-          maxWidth:150});
+        //  maxWidth:150
+        });
           
           this.inputFields.reset();
          
@@ -166,10 +171,12 @@ export class GermanyComponent implements OnInit {
             fillOpacity: 0
         }
         var appereance = {
-          stroke: false,
+            stroke: true,
             fill: true,
             fillColor: '#5c5c5c',
-            fillOpacity: 0.3
+            fillOpacity: 0.3,
+            weight: 0.7,
+            color: '#5c5c5c'
         }
 
           this.newArray.forEach(element => {
@@ -237,6 +244,102 @@ export class GermanyComponent implements OnInit {
     span.onclick = function () {
       modal.style.display = "none";
     }
+  }
+
+// build corona map double
+  addCircleMarkerToMap(){
+    console.log("kmgoaemgaoeikm");
+    var _1 = L.latLng(52.1834747,10.4800432);
+    var _2 = L.latLng(50.8953611,7.0029235);
+    var _3 = L.latLng(48.7383989,9.0805205);
+    var _4 = L.latLng(48.2323153,11.1871489);
+    var _5 = L.latLng(49.4978823,10.6268462);
+    var _6 = L.latLng(51.4448957,10.5993804);
+    var _7 = L.latLng(52.9795355,11.8792876);
+    var _8 = L.latLng(52.9265841,9.4128569);
+
+    var geojsonMarkerOptions = {
+      radius: 17,
+      fillColor: "#cf1b1b",
+      color: "#cf1b1b",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.4
+  };
+
+  const boxOptions = `<h1>Hello world</h1><p style="background-color:red; color:white">Infizierte: 3490</p><p style="background-color:green; color:white">Geheilte: 290</p><p style="background-color:black; color:white">Tote: 18</p>`;
+  
+ const test = L.circleMarker(_1,geojsonMarkerOptions).bindTooltip(boxOptions, {
+   sticky: true,
+   permanent: false
+ }).addTo(this.map);
+ test.on('mouseover', function(){
+  console.log("hover");
+  // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
+ });
+
+ const test1 = L.circleMarker(_2,geojsonMarkerOptions).bindTooltip(boxOptions, {
+  sticky: true,
+  permanent: false
+}).addTo(this.map);
+test.on('mouseover', function(){
+ console.log("hover");
+ // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
+});
+
+const test2 = L.circleMarker(_3,geojsonMarkerOptions).bindTooltip(boxOptions, {
+  sticky: true,
+  permanent: false
+}).addTo(this.map);
+test.on('mouseover', function(){
+ console.log("hover");
+ // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
+});
+
+const test3 = L.circleMarker(_4,geojsonMarkerOptions).bindTooltip(boxOptions, {
+  sticky: true,
+  permanent: false
+}).addTo(this.map);
+test.on('mouseover', function(){
+ console.log("hover");
+ // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
+});
+
+const test4 = L.circleMarker(_5,geojsonMarkerOptions).bindTooltip(boxOptions, {
+  sticky: true,
+  permanent: false
+}).addTo(this.map);
+test.on('mouseover', function(){
+ console.log("hover");
+ // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
+});
+
+const test5 = L.circleMarker(_6,geojsonMarkerOptions).bindTooltip(boxOptions, {
+  sticky: true,
+  permanent: false
+}).addTo(this.map);
+test.on('mouseover', function(){
+ console.log("hover");
+ // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
+});
+
+const test6 = L.circleMarker(_7,geojsonMarkerOptions).bindTooltip(boxOptions, {
+  sticky: true,
+  permanent: false
+}).addTo(this.map);
+test.on('mouseover', function(){
+ console.log("hover");
+ // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
+});
+
+const test7 = L.circleMarker(_8,geojsonMarkerOptions).bindTooltip(boxOptions, {
+  sticky: true,
+  permanent: false
+}).addTo(this.map);
+test.on('mouseover', function(){
+ console.log("hover");
+ // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
+});
   }
          
 
