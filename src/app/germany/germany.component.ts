@@ -24,6 +24,7 @@ export class GermanyComponent implements OnInit {
   newArray = [];
   countriesUsed = [];
   label;
+  image;
  
   
     constructor(
@@ -97,14 +98,14 @@ export class GermanyComponent implements OnInit {
       var opacity = this.inputFields.controls.opacity.value;
       var comment = this.inputFields.controls.comment.value;
       
-      var image = this.inputFields.controls.image.value;
+      this.image = this.inputFields.controls.image.value;
       var appereance = {
           stroke: true,
           fill: true,
           fillColor: pickedColor,
           fillOpacity: opacity,
           weight: 1,
-          color: pickedColor
+          color: "#5c5c5c"
       }
       var defaultAppereance = {
           stroke: false,
@@ -145,12 +146,13 @@ export class GermanyComponent implements OnInit {
         // <div><img style="width: 50px; height: 50px;" src="${image}"></div>
         
         
-        .addTo(this.map).bindPopup(`<p>${comment}</p>`, {autoClose: false,
+        .addTo(this.map).bindPopup(`<h1>${userLandInput}</h1><p>${comment}</p><div style="text-align:center;"><img style="width: 300px; height: 300px;" onerror="this.style.display='none'" src="${this.image}"></div>`, {autoClose: false,
           closeButton: true,
           closeOnClick: false,
           className: "popup-behavior",
           autoPan: true,
-        //  maxWidth:150
+          maxWidth:300,
+          maxHeight:200
         });
           
           this.inputFields.reset();
@@ -340,6 +342,14 @@ test.on('mouseover', function(){
  console.log("hover");
  // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
 });
+  }
+
+  hasImage(){
+    if(this.image != "" || this.image != null){
+      return true
+    }else{
+      return false
+    }
   }
          
 
