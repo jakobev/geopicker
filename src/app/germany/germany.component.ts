@@ -25,7 +25,9 @@ export class GermanyComponent implements OnInit {
   countriesUsed = [];
   label;
   image;
- 
+  ADE; //test variable for data in json
+  GF; //test variable for data in json
+  BSG;  //test variable for data in json
   
     constructor(
       private _formBuilder: FormBuilder,
@@ -83,6 +85,21 @@ export class GermanyComponent implements OnInit {
     }
   
     enterFunction(){
+
+    let info;
+    info = new L.Control();
+
+    info.onAdd = function(map){
+      this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+      this.update();
+      return this._div;
+    }
+    info.update = function (props) {
+      this._div.innerHTML = '<h4>Bundesländer</h4>' +  (props ?
+          '<b>' + 'ADE: ' + props.ADE + '</b><br />' + 'BSG: ' + props.BSG + '</b><br />' + 'GF: ' + props.GF + ''
+          : 'Fahre über ein Bundesland');
+  };
+  info.addTo(this.map);
   
       for(var i =0; i<this.geoData.features.length; i++){
         console.log("properties in loop ", this.geoData.features[i].properties.GEN);
@@ -105,7 +122,8 @@ export class GermanyComponent implements OnInit {
           fillColor: pickedColor,
           fillOpacity: opacity,
           weight: 1,
-          color: "#5c5c5c"
+          color: "#5c5c5c",
+          dashArray: '3',
       }
       var defaultAppereance = {
           stroke: false,
@@ -121,6 +139,9 @@ export class GermanyComponent implements OnInit {
           //  this.label = String(feature.properties.GEN);
            console.log("properties GEN before If", feature.properties.GEN);
            if(feature.properties.GEN === this._helperService.capitalize(userLandInput)){
+             this.ADE = feature.properties.ADE;
+             this.BSG = feature.properties.BSG;
+             this.GF = feature.properties.GF;
             const index = this.newArray.indexOf(feature.properties.GEN, 0);
             if (index > -1) {
                this.newArray.splice(index, 1);
@@ -133,6 +154,31 @@ export class GermanyComponent implements OnInit {
               console.log("deafult");
               return defaultAppereance;
             }
+          },
+          onEachFeature:(feature, layer)=> {
+            layer.on({
+                mouseover: (e) =>{
+                  var layer = e.target;
+              
+                  layer.setStyle({
+                      weight: 5,
+                      color: '#666',
+                      dashArray: '',
+                      fillOpacity: 0.7
+                  });
+              
+                  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                    console.log("highlighting")
+                  }
+                  info.update(layer.feature.properties);
+              },
+                mouseout: (e) =>{
+                  newLayer.resetStyle(e.target);
+                  info.update();
+                },
+                //click: zoomToFeature
+            });
           }
         })
         // .addTo(this.map)
@@ -146,13 +192,13 @@ export class GermanyComponent implements OnInit {
         // <div><img style="width: 50px; height: 50px;" src="${image}"></div>
         
         
-        .addTo(this.map).bindPopup(`<h1>${userLandInput}</h1><p>${comment}</p><div style="text-align:center;"><img style="width: 300px; height: 300px;" onerror="this.style.display='none'" src="${this.image}"></div>`, {autoClose: false,
+        .addTo(this.map).bindPopup(`<h1>${userLandInput}</h1><p>ADE: ${this.ADE} (Daten aus Json)</p><p>BSG: ${this.BSG} (Daten aus Json)</p><p>GF: ${this.GF} (Daten aus Json)</p><p>${comment}</p><div style="text-align:center;"><img style="width: 300px; height: 300px;" onerror="this.style.display='none'" src="${this.image}"></div>`, {autoClose: false,
           closeButton: true,
           closeOnClick: false,
           className: "popup-behavior",
           autoPan: true,
           maxWidth:300,
-          maxHeight:200
+          maxHeight:80
         });
           
           this.inputFields.reset();
@@ -178,7 +224,8 @@ export class GermanyComponent implements OnInit {
             fillColor: '#5c5c5c',
             fillOpacity: 0.3,
             weight: 0.7,
-            color: '#5c5c5c'
+            color: '#5c5c5c',
+            dashArray: '3'
         }
 
           this.newArray.forEach(element => {
@@ -352,5 +399,31 @@ test.on('mouseover', function(){
     }
   }
          
+
+  highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+      console.log("highlighting")
+    }
+}
+resetHighlight(e) {
+  this.geoData.resetStyle(e.target);
+}
+onEachFeature(feature, layer) {
+  layer.on({
+      mouseover: this.highlightFeature,
+      mouseout: this.resetHighlight,
+      //click: zoomToFeature
+  });
+}
 
 }
