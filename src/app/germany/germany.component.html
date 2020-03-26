@@ -82,9 +82,16 @@
                        
                         
                         <input id="button" type="button" value="Add to map" (click)="enterFunction();">
-                        <input id="button2" type="button" value="Gray out" (click)="grayOutOthers();">
+                        <input id="gray-out-button" type="button" value="Gray out" (click)="grayOutOthers();">
                         <input id="screenshot-button" type="button" value="Take Screenshot" (click)="takeMapScreenshot();">
                         <input id="test-btn" type="button" value="Add Corona Circles :D" (click)="addCircleMarkerToMap();">
+                        <div id="toggle-div">
+                            Gray Out
+                            <label class="switch">
+                                <input id="grayout-checkbox" type="checkbox" (click)="grayOut();">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
                     </form>
                 </div>
             </div>

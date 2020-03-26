@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as L from 'leaflet';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,12 +8,15 @@ import { HelperService } from '../helper.service';
 import html2canvas from 'html2canvas';
 import { faCamera} from '@fortawesome/free-solid-svg-icons';
 
+
 @Component({
   selector: 'app-germany',
   templateUrl: './germany.component.html',
   styleUrls: ['./germany.component.scss']
 })
 export class GermanyComponent implements OnInit {
+
+  @ViewChild('map', {static: false}) mapContainer;
 
   fac = faCamera;
   map;
@@ -28,6 +31,9 @@ export class GermanyComponent implements OnInit {
   ADE; //test variable for data in json
   GF; //test variable for data in json
   BSG;  //test variable for data in json
+  grayOutLayer;
+  grayLayer;
+  layerArray = [];
   
     constructor(
       private _formBuilder: FormBuilder,
@@ -60,10 +66,11 @@ export class GermanyComponent implements OnInit {
           this.newArray = this.newArray.filter((element, index, array) => {
             return index === array.indexOf(element);
           })
+          this.map = L.map('map', {zoomControl:false, attributionControl:false}).setView([51.2601802,10.6803971], 5.5);
+          this.initializeDefaultMap();
       });
 
   
-      this.map = L.map('map', {zoomControl:false, attributionControl:false}).setView([51.2601802,10.6803971], 5.5);
     //   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     //     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>, Presented By <a style="color: #ee7f00" href="https://eves-it.de/">eves_</a>',
     //     maxZoom: 18,
@@ -81,8 +88,13 @@ export class GermanyComponent implements OnInit {
     //     alert(error.statusText);
     //   }
     //   });
+   
+   
+   
     
     }
+
+   
   
     enterFunction(){
 
@@ -192,7 +204,7 @@ export class GermanyComponent implements OnInit {
         // <div><img style="width: 50px; height: 50px;" src="${image}"></div>
         
         
-        .addTo(this.map).bindPopup(`<h1>${userLandInput}</h1><p>ADE: ${this.ADE} (Daten aus Json)</p><p>BSG: ${this.BSG} (Daten aus Json)</p><p>GF: ${this.GF} (Daten aus Json)</p><p>${comment}</p><div style="text-align:center;"><img style="width: 300px; height: 300px;" onerror="this.style.display='none'" src="${this.image}"></div>`, {autoClose: false,
+        .bringToFront().addTo(this.map).bindPopup(`<h1>${userLandInput}</h1><p>ADE: ${this.ADE} (Daten aus Json)</p><p>BSG: ${this.BSG} (Daten aus Json)</p><p>GF: ${this.GF} (Daten aus Json)</p><p>${comment}</p><div style="text-align:center;"><img style="width: 300px; height: 300px;" onerror="this.style.display='none'" src="${this.image}"></div>`, {autoClose: false,
           closeButton: true,
           closeOnClick: false,
           className: "popup-behavior",
@@ -244,7 +256,6 @@ export class GermanyComponent implements OnInit {
                 }).addTo(this.map)
            
           });
-
 
 
           
@@ -327,68 +338,15 @@ export class GermanyComponent implements OnInit {
   // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
  });
 
- const test1 = L.circleMarker(_2,geojsonMarkerOptions).bindTooltip(boxOptions, {
-  sticky: true,
-  permanent: false
-}).addTo(this.map);
-test.on('mouseover', function(){
- console.log("hover");
- // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
-});
+var l;
+this.makeCircle(l, _7, geojsonMarkerOptions, boxOptions, this.map)
+  }
 
-const test2 = L.circleMarker(_3,geojsonMarkerOptions).bindTooltip(boxOptions, {
-  sticky: true,
-  permanent: false
-}).addTo(this.map);
-test.on('mouseover', function(){
- console.log("hover");
- // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
-});
-
-const test3 = L.circleMarker(_4,geojsonMarkerOptions).bindTooltip(boxOptions, {
-  sticky: true,
-  permanent: false
-}).addTo(this.map);
-test.on('mouseover', function(){
- console.log("hover");
- // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
-});
-
-const test4 = L.circleMarker(_5,geojsonMarkerOptions).bindTooltip(boxOptions, {
-  sticky: true,
-  permanent: false
-}).addTo(this.map);
-test.on('mouseover', function(){
- console.log("hover");
- // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
-});
-
-const test5 = L.circleMarker(_6,geojsonMarkerOptions).bindTooltip(boxOptions, {
-  sticky: true,
-  permanent: false
-}).addTo(this.map);
-test.on('mouseover', function(){
- console.log("hover");
- // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
-});
-
-const test6 = L.circleMarker(_7,geojsonMarkerOptions).bindTooltip(boxOptions, {
-  sticky: true,
-  permanent: false
-}).addTo(this.map);
-test.on('mouseover', function(){
- console.log("hover");
- // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
-});
-
-const test7 = L.circleMarker(_8,geojsonMarkerOptions).bindTooltip(boxOptions, {
-  sticky: true,
-  permanent: false
-}).addTo(this.map);
-test.on('mouseover', function(){
- console.log("hover");
- // alert("4590 INFIZIERTE\n 290 GEHEILT\n 18 TOTE")
-});
+  makeCircle(constVar, latlng, geoOptions, tooltipOptions, map){
+    constVar = L.circleMarker(latlng, geoOptions).bindTooltip(tooltipOptions, {
+      sticky: true,
+      permanent: false
+    }).addTo(map);
   }
 
   hasImage(){
@@ -424,6 +382,93 @@ onEachFeature(feature, layer) {
       mouseout: this.resetHighlight,
       //click: zoomToFeature
   });
+}
+
+initializeDefaultMap(){
+  console.log("initialize default map");
+  var defaultAppereance = {
+    stroke: false,
+    fill: false,
+    fillColor: '#fff',
+    fillOpacity: 0
+}
+var appereance = {
+    stroke: true,
+    fill: false,
+    fillColor: '#5c5c5c',
+    fillOpacity: 0.3,
+    weight: 0.7,
+    color: '#5c5c5c',
+    dashArray: '3'
+}
+
+  this.newArray.forEach(element => {
+    const newLayer =  L.geoJSON(this.geoData, {
+      style:(feature)=>{
+        if(feature.properties.GEN === element){
+
+       
+              return appereance;
+            }else{
+
+              return defaultAppereance;
+            }
+         }
+       
+        }).bringToBack().addTo(this.map)
+   
+  });
+}
+
+grayOut() {
+
+  var checkBox:HTMLInputElement = document.getElementById("grayout-checkbox") as HTMLInputElement;
+  
+
+  if (checkBox.checked == true){
+    var defaultAppereance = {
+      stroke: false,
+      fill: false,
+      fillColor: '#fff',
+      fillOpacity: 0
+  }
+  var appereance = {
+      stroke: false,
+      fill: true,
+      fillColor: '#5c5c5c',
+      fillOpacity: 0.3,
+      weight: 0.7,
+      color: '#5c5c5c',
+      dashArray: '3'
+  }
+  
+      this.newArray.forEach((element, index) =>{
+        var i = index;
+        var ind = "_"+ i
+        let grayLayer = L.geoJSON(this.geoData, {
+          style:(feature)=>{
+            if(feature.properties.GEN === element){
+              return appereance
+            }else{
+              return defaultAppereance
+            }
+          }
+        }).bringToBack().addTo(this.map);
+        this.layerArray.push(grayLayer);
+      })
+      // this.grayOutLayer = L.geoJSON(this.geoData, {
+      //   style:(feature)=>{
+      //     return appereance
+      //   }
+      // }).bringToBack().addTo(this.map);
+     
+    
+  } else {
+      this.layerArray.forEach(layer =>{
+
+        this.map.removeLayer(layer);
+      })
+  }
 }
 
 }
