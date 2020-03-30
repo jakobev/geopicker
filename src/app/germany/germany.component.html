@@ -27,22 +27,32 @@
         </div>
         
         <!-- <div class="row"> -->
-            <div class="col-md-8">
+            <div class="col-md-8" id="con">
                 
-                <div id="controls">
+                <span>
+
                     <h1>Map controls</h1>
-                    <form [formGroup]="inputFields">
-                        <!-- Bundesland 1 ----------------------------------------->
-                        <label>
+                    <input id="button" type="button" value="Add to map" (click)="addShitToMapTestFunction();">
+                    <input id="gray-out-button" type="button" value="Gray out" (click)="grayOutOthers();">
+                    <input id="screenshot-button" type="button" value="Take Screenshot" (click)="takeMapScreenshot();">
+                    <input id="test-btn" type="button" value="Add Corona Circles :D" (click)="addCircleMarkerToMap();">
+                    <div id="toggle-div">
+                        Gray Out
+                        <label class="switch">
+                            <input id="grayout-checkbox" type="checkbox" (click)="grayOut();">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </span>
+                <div id="controls">
+                    <form id="controls-form" [formGroup]="inputFields">
+                        <!-- <label>
                             Bundesland:
                             <select id="landPick" formControlName="landSelect" >
                                 <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
                             </select>
                         </label>
-                        <!-- <label>Land:
-                            
-                            <input id="land-input" type="text" placeholder="B" value="Niedersachsen" formControlName="landInputNiedersachsen">
-                        </label> -->
+                        
                         <br>
                         <label>Farbe:
                             <select id="colorPick" formControlName="colorSelect">
@@ -58,8 +68,7 @@
                                 <option value="#000">Schwarz</option>
                             </select>
                         </label>
-                        <!-- <input id="color-input" type="text" placeholder="enter color"> -->
-                        <!-- <input id="weight-input" type="text" placeholder="enter weight"> -->
+                       
                         <br>
                         <label>Opacity:
                             
@@ -74,31 +83,720 @@
                             <br>
                             Image:
                             <input id="image-field" type="text" placeholder="enter image src" formControlName="image">
+                        </label> -->
+
+                        <label id="Niedersachsen">Niedersachsen
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectNiedersachsen">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
                         </label>
 
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityNiedersachsen">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentNiedersachsen" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageNiedersachsen">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+
+                        <label id="Bayern">Bayern
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
                         
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectBayern">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityBayern">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentBayern" rows="1" cols="50"></textarea>
+                        </label>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageBayern">
+                        </label> 
+
+                        <br>
+                        <br>
+
+                        <label id="Saarland">Saarland
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
                         
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectSaarland">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacitySaarland">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentSaarland" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageSaarland">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Schleswig-Holstein">Schleswig-Holstein
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectSchleswigHolstein">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacitySchleswigHolstein">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentSchleswigHolstein" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageSchleswigHolstein">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Sachsen-Anhalt">Sachsen-Anhalt
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectSachsenAnhalt">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacitySachsenAnhalt">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentSachsenAnhalt" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageSachsenAnhalt">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Sachsen">Sachsen
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectSachsen">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacitySachsen">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentSachsen" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageSachsen">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Hessen">Hessen
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectHessen">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityHessen">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentHessen" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageHessen">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Thüringen">Thüringen
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectThüringen">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityThüringen">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentThüringen" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageThüringen">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Baden-Württemberg">Baden-Württemberg
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectBadenWürttemberg">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityBadenWürttemberg">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentBadenWürttemberg" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageBadenWürttemberg">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Rheinland-Pfalz">Rheinland-Pfalz
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectRheinlandPfalz">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityRheinlandPfalz">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentRheinlandPfalz" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageRheinlandPfalz">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Mecklenburg-Vorpommern">Mecklenburg-Vorpommern
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectMecklenburgVorpommern">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityMecklenburgVorpommern">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentMecklenburgVorpommern" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageMecklenburgVorpommern">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Hamburg">Hamburg
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectHamburg">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityHamburg">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentHamburg" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageHamburg">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Bremen">Bremen
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectBremen">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityBremen">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentBremen" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageBremen">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Brandenburg">Brandenburg
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectBrandenburg">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityBrandenburg">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentBrandenburg" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageBrandenburg">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Berlin">Berlin
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectBerlin">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityBerlin">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentBerlin" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageBerlin">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
+
+                        <label id="Nordrhein-Westfalen">Nordrhein-Westfalen
+                            
+                            <!-- <select id="landPick" formControlName="landSelect" >
+                                <option *ngFor="let element of this.newArray" value="{{element}}">{{element}}</option>
+                            </select> -->
+                        </label>
+                        
+                        <br>
+                        <label>Farbe:
+                            <select id="colorPick" formControlName="colorSelectNordrheinWestfalen">
+                                <option value="#f54251">Rot</option>
+                                <option value="#2754cf">Blau</option>
+                                <option value="#d6cf0d">Gelb</option>
+                                <option value="#17eb50">Grün</option>
+                                <option value="#d71ae8">Lila</option>
+                                <option value="#14e3d5">Türkis</option>
+                                <option value="#eb9123">Orange</option>
+                                <option value="#095e7a">Dunkelblau</option>
+                                <option value="#fff">Weiß</option>
+                                <option value="#000">Schwarz</option>
+                            </select>
+                        </label>
+
+                        <br>
+                        <label>Opacity:
+                            
+                            <input id="opacity-input" type="text" placeholder="enter opacity" formControlName="opacityNordrheinWestfalen">
+                        </label>
+                        <br>
+                        <label>Kommentar:
+                            
+                            <textarea id="kommentar" type="text" placeholder="enter comment" formControlName="commentNordrheinWestfalen" rows="1" cols="50"></textarea>
+                        </label>
+                        <br>
+                        <label>
+                            <br>
+                            Image:
+                            <input id="image-field" type="text" placeholder="enter image src" formControlName="imageNordrheinWestfalen">
+                        </label> 
+
+                        <br>
+                        <br>
+                        <br>
 
                        
                         
-                        <input id="button" type="button" value="Add to map" (click)="enterFunction();">
-                        <input id="gray-out-button" type="button" value="Gray out" (click)="grayOutOthers();">
-                        <input id="screenshot-button" type="button" value="Take Screenshot" (click)="takeMapScreenshot();">
-                        <input id="test-btn" type="button" value="Add Corona Circles :D" (click)="addCircleMarkerToMap();">
-                        <div id="toggle-div">
-                            Gray Out
-                            <label class="switch">
-                                <input id="grayout-checkbox" type="checkbox" (click)="grayOut();">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
+                        
                     </form>
                 </div>
             </div>
             <div id="images">
                 
             </div>
-            <!-- </div> -->
         </div>
     </div>
     <div id="myModal" class="modal">
@@ -112,4 +810,7 @@
         <!-- Modal Caption (Image Text) -->
         <div id="caption"></div>
       </div>
+      <footer style="background-color: orangered; color: white; height: 50px; text-align: center; font-family: Verdana, Geneva, Tahoma, sans-serif;">
+          <h3>dev by M.B <a href="eves-it.de">@eves</a></h3>
+      </footer>
     <app-footer></app-footer>
